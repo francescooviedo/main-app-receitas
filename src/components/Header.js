@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
+import MyContext from '../Context/MyContext';
 
 export default function Header({ title, header, profile, search }) {
+  const { handleChange, inputSearch, setInputSearch } = useContext(MyContext);
+
   const history = useHistory();
   const [hidden, setHidden] = useState(false);
-  const [inputSearch, setInputSearch] = useState('');
 
   const handleHistoryPush = () => {
     history.push('/profile');
@@ -16,10 +19,6 @@ export default function Header({ title, header, profile, search }) {
   const handleHiddenInput = () => {
     setHidden(!hidden);
     setInputSearch('');
-  };
-
-  const handleInputChange = ({ target }) => {
-    setInputSearch(target.value);
   };
 
   return (
@@ -72,12 +71,16 @@ export default function Header({ title, header, profile, search }) {
 
         hidden
         && (
-          <input
-            type="text"
-            value={ inputSearch }
-            data-testid="search-input"
-            onChange={ handleInputChange }
-          />
+          <div>
+
+            <input
+              type="text"
+              value={ inputSearch }
+              data-testid="search-input"
+              onChange={ handleChange }
+            />
+            <SearchBar />
+          </div>
 
         )
       }
