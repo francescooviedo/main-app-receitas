@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Provider from './components/Provider';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -15,20 +15,18 @@ function App() {
   return (
     <main>
       <Provider>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={ Login } />
-            <Route exact path="/profile" component={ Profile } />
-            <Route exact path="/meals" component={ Recipes } />
-            <Route exact path="/drinks" component={ Recipes } />
-            <Route exact path="/done-recipes" component={ DoneRecipes } />
-            <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
-            <Route exact path="/meals/:id" component={ RecipeDetails } />
-            <Route exact path="/drinks/:id" component={ RecipeDetails } />
-            <Route exact path="/meals/:id/inprogress" component={ RecipesInProgress } />
-            <Route exact path="/drinks/:id/inprogress" component={ RecipesInProgress } />
-          </Switch>
-        </BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          <Route exact path="/profile" component={ Profile } />
+          <Route exact path="/meals" component={ Recipes } />
+          <Route exact path="/drinks" component={ Recipes } />
+          <Route exact path="/done-recipes" component={ DoneRecipes } />
+          <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+          <Route exact path="/meals/:id" component={ RecipeDetails } />
+          <Route exact path="/drinks/:id" component={ RecipeDetails } />
+          <Route exact path="/meals/:id/inprogress" component={ RecipesInProgress } />
+          <Route exact path="/drinks/:id/inprogress" component={ RecipesInProgress } />
+        </Switch>
       </Provider>
     </main>
   );
