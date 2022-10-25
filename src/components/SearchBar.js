@@ -12,7 +12,7 @@ export default function SearchBar() {
     console.log(radio);
     requestIngredient('chicken');
     requestNome('Arrabiata');
-    requestFirstLetter('c');
+    requestFirstLetter('d');
   };
 
   return (
