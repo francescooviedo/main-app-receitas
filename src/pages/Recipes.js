@@ -1,9 +1,16 @@
 import React from 'react';
-// import MyContext from '../Context/MyContext';
-// const {} = useContext(MyContext)
+import PropTypes from 'prop-types';
+import Header from '../components/Header';
 
-export default function Recipes() {
+export default function Recipes({ location: { pathname } }) {
+  const verifyURL = pathname === '/meals';
   return (
-    <div>Recipes</div>
+    <div>
+      <Header header profile search title={ verifyURL ? 'Meals' : 'Drinks' } />
+    </div>
+
   );
 }
+Recipes.propTypes = {
+  location: PropTypes.shape({ pathname: PropTypes.string }).isRequired,
+};
