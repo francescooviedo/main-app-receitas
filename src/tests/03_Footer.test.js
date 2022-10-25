@@ -5,8 +5,8 @@ import renderWithProvider from '../helpers/renderWithProvider';
 
 beforeEach(() => { renderWithProvider(<Footer />); });
 
-describe('Login Tests', () => {
-  test('If the button are in the page:', () => {
+describe('Footer Tests', () => {
+  test('If the buttons are in the page:', () => {
     const drinkBtn = screen.getByTestId('drinks-bottom-btn');
     const mealBtn = screen.getByTestId('meals-bottom-btn');
 
