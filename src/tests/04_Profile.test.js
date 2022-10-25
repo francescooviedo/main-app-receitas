@@ -43,4 +43,8 @@ describe('Profile Tests', () => {
 
     expect(email).toBeInTheDocument();
   });
+  it('Test if localStorage.getItem is called when run getSavedCartItems()', () => {
+    getEmail();
+    expect(localStorage.getItem).toBeCalled();
+  });
 });
