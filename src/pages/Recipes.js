@@ -17,25 +17,26 @@ export default function Recipes() {
       <Header header profile search title={ functionSelector ? 'Meals' : 'Drinks' } />
       <Footer />
       {!renderAlert
-        && <div>
-          {functionSelector && API.slice(0, doze).map((receita, index) => (
-            <div key={ Math.random() } data-testid={ `${index}-recipe-card` }>
-              <h4
-                key={ Math.random() }
-                data-testid={ `${index}-card-name` }
-              >
-                {receita.strMeal}
+        && (
+          <div>
+            {functionSelector && API.slice(0, doze).map((receita, index) => (
+              <div key={ Math.random() } data-testid={ `${index}-recipe-card` }>
+                <h4
+                  key={ Math.random() }
+                  data-testid={ `${index}-card-name` }
+                >
+                  {receita.strMeal}
 
-              </h4>
-              <img
-                key={ Math.random() }
-                src={ receita.strMealThumb }
-                alt="img"
-                data-testid={ `${index}-card-img` }
-              />
-            </div>
-          ))}
-          {!functionSelector
+                </h4>
+                <img
+                  key={ Math.random() }
+                  src={ receita.strMealThumb }
+                  alt="img"
+                  data-testid={ `${index}-card-img` }
+                />
+              </div>
+            ))}
+            {!functionSelector
           && API.slice(0, doze).map((receita, index) => (
             <div key={ Math.random() } data-testid={ `${index}-recipe-card` }>
               <h4
@@ -52,7 +53,8 @@ export default function Recipes() {
               />
             </div>
           ))}
-        </div>}
+          </div>
+        )}
       {renderAlert
       && global.alert('Sorry, we haven\'t found any recipes for these filters.')}
 

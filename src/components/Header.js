@@ -22,7 +22,6 @@ export default function Header({ title, header, profile, search }) {
 
   return (
     <div>
-      <SearchBar />
       {
         header
         && (

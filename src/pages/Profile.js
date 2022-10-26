@@ -7,14 +7,14 @@ import Footer from '../components/Footer';
 // const {} = useContext(MyContext)
 
 export default function Profile() {
-  // const getEmail = () => {
-  //   if (JSON.parse(localStorage.getItem('user')) !== null) {
-  //     const { email } = JSON.parse(localStorage.getItem('user'));
-  //     return email;
-  //   } return '';
-  // };
+  const getEmail = () => {
+    if (JSON.parse(localStorage.getItem('user')) !== null) {
+      const { email } = JSON.parse(localStorage.getItem('user'));
+      return email;
+    } return 'teste@teste.com';
+  };
 
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  // const { email } = JSON.parse(localStorage.getItem('user'));
 
   const clearLocalStorage = () => {
     localStorage.clear();
@@ -24,7 +24,7 @@ export default function Profile() {
     <div>
       <Header header profile search={ false } title="Profile" />
       <Footer />
-      <p data-testid="profile-email">{ email }</p>
+      <p data-testid="profile-email">{ getEmail }</p>
       <Link to="/done-recipes">
         <button data-testid="profile-done-btn" type="button">
           Done Recipes

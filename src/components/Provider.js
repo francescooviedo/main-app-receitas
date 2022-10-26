@@ -31,7 +31,7 @@ function Provider({ children }) {
     setInputSearch,
     handleChangeRadio,
 
-  }), [radio, inputSearch, buttonDrink, buttonMeal, API]);
+  }), [radio, inputSearch, buttonDrink, buttonMeal, API, condicionalRender]);
 
   return (
     <MyContext.Provider value={ contextValue }>
