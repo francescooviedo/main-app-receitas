@@ -58,6 +58,13 @@ export default function Recipes() {
       {renderAlert
       && global.alert('Sorry, we haven\'t found any recipes for these filters.')}
 
+      <button
+        type="button"
+        onClick={ () => { history.push('/meals/52874'); } }
+      >
+        receita
+
+      </button>
     </div>
   );
 }
