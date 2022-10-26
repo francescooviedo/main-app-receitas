@@ -1,42 +1,26 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MemoryRouter } from 'react-router-dom';
-import Header from '../components/Header';
+import { act } from 'react-dom/test-utils';
+import App from '../App';
+import renderWithRouter from '../helpers/renderWithRouter';
 
 describe('test header component', () => {
   test('', () => {
-    render(
-      <MemoryRouter>
-        <Header header title="test" search profile />
-      </MemoryRouter>,
-    );
-    const pageTitle = screen.getByTestId('page-title');
-    const searchBtn = screen.getByRole('img', {
-      name: /search-icon/i,
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+      history.push('/meals');
     });
-    const profileIcon = screen.getByRole('img', {
-      name: /profile-icon/i,
-    });
-    expect(pageTitle).toBeInTheDocument();
-    expect(searchBtn).toBeInTheDocument();
-    expect(profileIcon).toBeInTheDocument();
-    userEvent.click(profileIcon);
-  });
-  test('', () => {
-    render(
-      <MemoryRouter>
-        <Header header title="test" search profile />
-      </MemoryRouter>,
-    );
-    const searchBtn = screen.getByRole('img', {
-      name: /search-icon/i,
-    });
-    expect(searchBtn).toBeInTheDocument();
-    userEvent.click(searchBtn);
-    const textArea = screen.getByRole('textbox');
-    expect(textArea).toBeInTheDocument();
-    userEvent.type(textArea, 'test');
-    expect(textArea.value).toBe('test');
+    const buttonProfile = screen.getByRole('button', { name: /profile-icon/i });
+    const buttonSearch = screen.getByRole('button', { name: /search-icon/i });
+
+    expect(buttonProfile && buttonSearch).toBeInTheDocument();
+    userEvent.click(buttonSearch);
+    const radioIngredient = screen.getByText(/ingredient/i);
+    userEvent.click(radioIngredient);
+    userEvent.type(buttonSearch, 'chicken');
+    userEvent.click(buttonSearch);
+    userEvent.click(buttonProfile);
+    expect(history.location.pathname).toBe('/profile');
   });
 });
