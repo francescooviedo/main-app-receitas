@@ -1,9 +1,12 @@
+
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../Context/MyContext';
 import mealsAPI from '../helpers/functionsAPI';
 import drinksAPI from '../helpers/drinkAPI';
 
+import mealsAPI
+ from '../helpers/functionsAPI';
 export default function SearchBar() {
   const [inputSearch, handleChange] = useState('');
 

@@ -11,6 +11,7 @@ export default function Recipes() {
   const renderAlert = API === null;
   const functionSelector = history.location.pathname === '/meals';
   const doze = 12;
+
   return (
     <div>
       <Header header profile search title={ functionSelector ? 'Meals' : 'Drinks' } />
@@ -54,6 +55,7 @@ export default function Recipes() {
         </div>}
       {renderAlert
       && global.alert('Sorry, we haven\'t found any recipes for these filters.')}
+
     </div>
   );
 }
