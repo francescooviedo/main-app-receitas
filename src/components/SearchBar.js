@@ -1,69 +1,136 @@
-import React, { useEffect, useState } from 'react';
-import { findRenderedDOMComponentWithTag } from 'react-dom/test-utils';
+
+import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import MyContext from '../Context/MyContext';
+import mealsAPI from '../helpers/functionsAPI';
+import drinksAPI from '../helpers/drinkAPI';
 
 import mealsAPI
  from '../helpers/functionsAPI';
 export default function SearchBar() {
-  const [inputText, setInputText] =useState('')
-  const [inputText2, setInputText2] =useState('')
-  const [retornoApi, setRetorno] = useState([])
-  const [load,setLoad]=useState(false)
-  useEffect(()=>{
-    setInputText(inputText)
-    console.log(inputText)
-  },[inputText])
-  const search = async ()=>{
+  const [inputSearch, handleChange] = useState('');
 
-    const {meals} = await mealsAPI(`filter.php?i=${inputText}`);
-  setRetorno(meals); 
-  }
-  
+  const {
+    API,
+    setAPI,
+    radio,
+    handleChangeRadio,
+  } = useContext(MyContext);
+
+  const history = useHistory();
+  const functionSelector = history.location.pathname === '/meals';
+  const clickMeals = async () => {
+    setAPI([0, 1]);
+    if (radio === 'ingrediente') {
+      const ingredientesApi = await mealsAPI(`filter.php?i=${inputSearch}`);
+      setAPI(ingredientesApi.meals);
+    }
+    if (radio === 'nome') {
+      const ingredientesApi = await mealsAPI(`search.php?s=${inputSearch}`);
+      setAPI(ingredientesApi.meals);
+    }
+    if (radio === 'primeira-letra') {
+      if (inputSearch.length > 1) {
+        return global.alert('Your search must have only 1 (one) character');
+      }
+      const ingredientesApi = await mealsAPI(`search.php?f=${inputSearch}`);
+      setAPI(ingredientesApi.meals);
+    }
+  };
+
+  const clickBebidas = async () => {
+    setAPI([0, 1]);
+    if (radio === 'ingrediente') {
+      const ingredientesApi = await drinksAPI(`filter.php?i=${inputSearch}`);
+      setAPI(ingredientesApi.drinks);
+    }
+    if (radio === 'nome') {
+      const ingredientesApi = await drinksAPI(`search.php?s=${inputSearch}`);
+      setAPI(ingredientesApi.drinks);
+    }
+    if (radio === 'primeira-letra') {
+      if (inputSearch.length > 1) {
+        return global.alert('Your search must have only 1 (one) character');
+      }
+      const ingredientesApi = await drinksAPI(`search.php?f=${inputSearch}`);
+      setAPI(ingredientesApi.drinks);
+    }
+  };
+  useEffect(() => {
+    const DOZE = 12;
+    if (API === null) {
+      return console.log('A');
+    }
+    if (API.length > DOZE) {
+      console.log(API);
+    }
+    if (API.length === 1) {
+      if (functionSelector) {
+        history.push(`/meals/${API[0].idMeal}`);
+      }
+      if (!functionSelector) {
+        history.push(`/drinks/${API[0].idDrink}`);
+      }
+    }
+  }, [API]);
+
   return (
     <div>
-      <form>
-        <input 
-        type='text'
-        value={inputText}
-        onChange={(e)=>setInputText(e.target.value)}
-        />
-      
-      <input 
-      type="radio" 
-      id="ingredient" 
-      name="fav_language" 
-      value="ingredient" 
-      onChange={  (e)=> setInputText2(e.target.value)}
+      <input
+        type="text"
+        value={ inputSearch }
+        data-testid="search-input"
+        onChange={ (e) => handleChange(e.target.value) }
       />
-       <label htmlFor="ingredient" >ingredient</label>
+      <label
+        htmlFor="ingredient"
+      >
+        <input
+          data-testid="ingredient-search-radio"
+          type="radio"
+          value="ingrediente"
+          onChange={ handleChangeRadio }
+          name={ radio }
+          id="ingredient"
+        />
+        Ingredient
+      </label>
 
-      <input 
-      type="radio" 
-      id="name"
-       name="fav_language"
-        value="name"
-        onChange={  (e)=> setInputText2(e.target.value)}
-/>
-       <label htmlFor="name">name</label>
+      <label
+        htmlFor="name"
+      >
+        <input
+          data-testid="name-search-radio"
+          type="radio"
+          value="nome"
+          onChange={ handleChangeRadio }
+          name={ radio }
+          id="name"
+        />
+        Name
+      </label>
 
-      <input 
-      type="radio" 
-      id="first letter" 
-      name="fav_language" 
-      value="first letter"       
-      onChange={  (e)=> setInputText2(e.target.value)}
-/>
-      <label htmlFor="first letter">first letter</label>
-      <button 
-      type='button'
-      onClick={search}
-      >search
+      <label
+        htmlFor="firstletter"
+      >
+        <input
+          data-testid="first-letter-search-radio"
+          type="radio"
+          value="primeira-letra"
+          onChange={ handleChangeRadio }
+          name={ radio }
+          id="firstletter"
+        />
+        First letter
+      </label>
+
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ functionSelector ? clickMeals : clickBebidas }
+      >
+        Search
       </button>
-      </form>
-      <div>
-      {retornoApi.slice(0,12).map((receita)=>(
-        <h5>{receita.strMeal}</h5>
-      ))}
-      </div>
     </div>
   );
 }
