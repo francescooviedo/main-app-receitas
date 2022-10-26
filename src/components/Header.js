@@ -7,10 +7,9 @@ import SearchBar from './SearchBar';
 import MyContext from '../Context/MyContext';
 
 export default function Header({ title, header, profile, search }) {
-  const { handleChange, inputSearch, setInputSearch } = useContext(MyContext);
-
   const history = useHistory();
   const [hidden, setHidden] = useState(false);
+  const { setAPI } = useContext(MyContext);
 
   const handleHistoryPush = () => {
     history.push('/profile');
@@ -18,7 +17,7 @@ export default function Header({ title, header, profile, search }) {
 
   const handleHiddenInput = () => {
     setHidden(!hidden);
-    setInputSearch('');
+    setAPI([0, 1]);
   };
 
   return (
@@ -70,19 +69,7 @@ export default function Header({ title, header, profile, search }) {
       {
 
         hidden
-        && (
-          <div>
-
-            <input
-              type="text"
-              value={ inputSearch }
-              data-testid="search-input"
-              onChange={ handleChange }
-            />
-            <SearchBar />
-          </div>
-
-        )
+        && (<SearchBar />)
       }
     </div>
 

@@ -1,6 +1,6 @@
-const APIURL = 'https://www.themealdb.com/api/json/v1/1/';
+const APIURL = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
-const mealsAPI = (searchInput) => (
+const drinksAPI = (searchInput) => (
   fetch(`${APIURL}${searchInput}`)
     .then((response) => (
       response
@@ -10,4 +10,4 @@ const mealsAPI = (searchInput) => (
     ))
 );
 
-export default mealsAPI;
+export default drinksAPI;
