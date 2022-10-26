@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 export default function Header({ title, header, profile, search }) {
   const history = useHistory();
@@ -24,6 +25,7 @@ export default function Header({ title, header, profile, search }) {
 
   return (
     <div>
+      <SearchBar />
       {
         header
         && (
