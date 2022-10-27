@@ -13,7 +13,7 @@ import RecipesInProgress from './pages/RecipesInProgress';
 
 function App() {
   return (
-    <main className='a'>
+    <main className="a">
       <Provider>
         <Switch>
           <Route exact path="/" component={ Login } />
@@ -24,8 +24,8 @@ function App() {
           <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
           <Route exact path="/meals/:id" component={ RecipeDetails } />
           <Route exact path="/drinks/:id" component={ RecipeDetails } />
-          <Route exact path="/meals/:id/inprogress" component={ RecipesInProgress } />
-          <Route exact path="/drinks/:id/inprogress" component={ RecipesInProgress } />
+          <Route exact path="/meals/:id/in-progress" component={ RecipesInProgress } />
+          <Route exact path="/drinks/:id/in-progress" component={ RecipesInProgress } />
         </Switch>
       </Provider>
     </main>
