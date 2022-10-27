@@ -13,7 +13,7 @@ import RecipesInProgress from './pages/RecipesInProgress';
 
 function App() {
   return (
-    <main className='a'>
+    <main>
       <Provider>
         <Switch>
           <Route exact path="/" component={ Login } />
