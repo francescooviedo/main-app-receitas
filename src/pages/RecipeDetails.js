@@ -20,43 +20,35 @@ export default function RecipeDetails({ match: { url } }) {
       const result = await response.json();
       setInfo(result[drinkOrFood][0]);
       setRenderVideo(drinkOrFood);
-      console.log(result);
     };
     requestAPI();
   }, [url]);
 
-  const getIngredients = (obj, prefix) => {
-    const ingredientsList = [];
+  const getIngredientsAndMeasures = (obj, prefix) => {
+    const array = [];
     Object.entries(obj).forEach((element) => {
       if (element[0].startsWith(prefix) && element[1] !== '' && element[1] !== null) {
-        ingredientsList.push(element[1]);
+        array.push(element[1]);
       }
     });
-    return ingredientsList;
+    return array;
   };
-  const ArrayIngredients = getIngredients(info, 'strIngredient');
 
-  const getMeasures = (obj, prefix) => {
-    const measuresList = [];
-    Object.entries(obj).forEach((element) => {
-      if (element[0].startsWith(prefix) && element[1] !== '' && element[1] !== null) {
-        measuresList.push(element[1]);
-      }
-    });
-    return measuresList;
-  };
-  const ArrayMeasures = getMeasures(info, 'strMeasure');
+  const ArrayIngredients = getIngredientsAndMeasures(info, 'strIngredient');
+  const ArrayMeasures = getIngredientsAndMeasures(info, 'strMeasure');
 
-  const mesclaArray = () => {
-    const newObj = [];
+  const createIngredientsAndMeasuresObj = () => {
+    const newArray = [];
+    let newObj = {};
     ArrayIngredients.forEach((element, index) => {
       newObj[element] = ArrayMeasures[index];
+      newArray.push(newObj);
+      newObj = {};
     });
-    console.log(newObj);
-    return newObj;
+    return newArray;
   };
-  const newArray = mesclaArray();
-  console.log(newArray);
+
+  const ingredientsAndMeasures = createIngredientsAndMeasuresObj();
 
   return (
     <div>
@@ -66,13 +58,14 @@ export default function RecipeDetails({ match: { url } }) {
         alt={ info.idDrink || info.idMeal }
       />
       <h3 data-testid="recipe-title">{info.strDrink || info.strMeal}</h3>
-      <h4 data-testid="recipe-category">{info.strCategory}</h4>
+      <h4 data-testid="recipe-category">{info.strAlcoholic || info.strCategory}</h4>
       <ul>
         {
-          for(i in newObj){
-            return <li>newObj[i]</li>
-
-          }
+          ingredientsAndMeasures.map((ingredient, index) => (
+            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              {`${Object.keys(ingredient)[0]} -  ${Object.values(ingredient)[0]}`}
+            </li>
+          ))
         }
       </ul>
       <p data-testid="instructions">{info.strInstructions}</p>
