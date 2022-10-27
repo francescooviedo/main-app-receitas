@@ -29,9 +29,8 @@ describe('test SearchBar /Meals', () => {
     userEvent.type(inputSearch, 'Arrabiata');
     userEvent.click(radioName);
     expect(btnSearch).toBeInTheDocument();
-    // userEvent.click(btnSearch);
-    // Se descomentar da xabu
-    // expect(global.fetch).toHaveBeenCalled();
-    // não está chamando
+    userEvent.click(btnSearch);
+    expect(global.fetch).toHaveBeenCalled();
+    // expect(global.alert).toHaveBeenCalled();
   });
 });

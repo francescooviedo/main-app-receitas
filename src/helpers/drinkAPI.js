@@ -1,13 +1,13 @@
 const APIURL = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
-const drinksAPI = (searchInput) => (
-  fetch(`${APIURL}${searchInput}`)
-    .then((response) => (
-      response
-        .json()
-        .then((json) => (
-          response.ok ? Promise.resolve(json) : Promise.reject(json)))
-    ))
-);
+const drinksAPI = async (searchInput) => {
+  try {
+    const fetchAPI = await fetch(`${APIURL}${searchInput}`);
+    const result = await fetchAPI.json();
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default drinksAPI;
