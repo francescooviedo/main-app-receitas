@@ -8,8 +8,10 @@ export default function SearchBar() {
   const [inputSearch, handleChange] = useState('');
 
   const {
-    API,
-    setAPI,
+    setAPIMeals,
+    setAPIDrinks,
+    APIDrinks,
+    APIMeals,
     radio,
     handleChangeRadio,
   } = useContext(MyContext);
@@ -17,59 +19,65 @@ export default function SearchBar() {
   const history = useHistory();
   const functionSelector = history.location.pathname === '/meals';
   const clickMeals = async () => {
-    setAPI([0, 1]);
     if (radio === 'ingrediente') {
       const ingredientesApi = await mealsAPI(`filter.php?i=${inputSearch}`);
-      setAPI(ingredientesApi.meals);
+      setAPIMeals(ingredientesApi.meals);
     }
     if (radio === 'nome') {
       const ingredientesApi = await mealsAPI(`search.php?s=${inputSearch}`);
-      setAPI(ingredientesApi.meals);
+      setAPIMeals(ingredientesApi.meals);
     }
     if (radio === 'primeira-letra') {
       if (inputSearch.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
       }
       const ingredientesApi = await mealsAPI(`search.php?f=${inputSearch}`);
-      setAPI(ingredientesApi.meals);
+      setAPIMeals(ingredientesApi.meals);
     }
   };
 
   const clickBebidas = async () => {
-    setAPI([0, 1]);
     if (radio === 'ingrediente') {
       const ingredientesApi = await drinksAPI(`filter.php?i=${inputSearch}`);
-      setAPI(ingredientesApi.drinks);
+      setAPIDrinks(ingredientesApi.drinks);
     }
     if (radio === 'nome') {
       const ingredientesApi = await drinksAPI(`search.php?s=${inputSearch}`);
-      setAPI(ingredientesApi.drinks);
+      setAPIDrinks(ingredientesApi.drinks);
     }
     if (radio === 'primeira-letra') {
       if (inputSearch.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
       }
       const ingredientesApi = await drinksAPI(`search.php?f=${inputSearch}`);
-      setAPI(ingredientesApi.drinks);
+      setAPIDrinks(ingredientesApi.drinks);
     }
   };
   useEffect(() => {
     const DOZE = 12;
-    if (API === null) {
+    if (APIMeals === null) {
       return console.log('A');
     }
-    if (API.length > DOZE) {
-      console.log(API);
+    if (APIMeals.length > DOZE) {
+      console.log(APIMeals);
     }
-    if (API.length === 1) {
-      if (functionSelector) {
-        history.push(`/meals/${API[0].idMeal}`);
-      }
-      if (!functionSelector) {
-        history.push(`/drinks/${API[0].idDrink}`);
-      }
+    if (APIMeals.length === 1) {
+      history.push(`/meals/${APIMeals[0].idMeal}`);
     }
-  }, [API, history, functionSelector]);
+  }, [APIMeals, history, functionSelector]);
+
+  useEffect(() => {
+    const DOZE = 12;
+    if (APIDrinks === null) {
+      return console.log('A');
+    }
+    if (APIDrinks.length > DOZE) {
+      console.log(APIDrinks);
+    }
+    if (APIDrinks.length === 1) {
+      history.push(`/drinks/${APIDrinks[0].idDrink}`);
+    }
+  }, [APIDrinks, history, functionSelector]);
 
   return (
     <div>

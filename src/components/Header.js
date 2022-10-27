@@ -5,11 +5,12 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import MyContext from '../Context/MyContext';
+import './Header.css';
 
 export default function Header({ title, header, profile, search }) {
   const history = useHistory();
   const [hidden, setHidden] = useState(false);
-  const { setAPI } = useContext(MyContext);
+  const { setAPIDrinks, setAPIMeals } = useContext(MyContext);
 
   const handleHistoryPush = () => {
     history.push('/profile');
@@ -17,11 +18,12 @@ export default function Header({ title, header, profile, search }) {
 
   const handleHiddenInput = () => {
     setHidden(!hidden);
-    setAPI([0, 1]);
+    setAPIDrinks([0, 1]);
+    setAPIMeals([0, 1]);
   };
 
   return (
-    <div>
+    <div className="headercss">
       {
         header
         && (

@@ -4,60 +4,58 @@ import { useContext } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import MyContext from '../Context/MyContext';
+import Card from '../components/Card';
+import CategoryFilter from '../components/CategoryFilter';
+import './Recipes.css';
 
 export default function Recipes() {
   const history = useHistory();
-  const { API } = useContext(MyContext);
-  const renderAlert = API === null;
+  const { APIMeals, APIDrinks, categoryDrink, categoryMeal } = useContext(MyContext);
+  const renderAlert = APIMeals === null;
   const functionSelector = history.location.pathname === '/meals';
   const doze = 12;
 
   return (
     <div>
       <Header header profile search title={ functionSelector ? 'Meals' : 'Drinks' } />
-      <Footer />
-      {!renderAlert
-        && (
-          <div>
-            {functionSelector && API.slice(0, doze).map((receita, index) => (
-              <div key={ Math.random() } data-testid={ `${index}-recipe-card` }>
-                <h4
-                  key={ Math.random() }
-                  data-testid={ `${index}-card-name` }
-                >
-                  {receita.strMeal}
+      {functionSelector && <CategoryFilter apiType={ categoryMeal } />}
+      {!functionSelector && <CategoryFilter apiType={ categoryDrink } />}
+      <div className="RecipesContainer">
 
-                </h4>
-                <img
+        {!renderAlert
+        && (
+          <div className="receitasContainer">
+            {
+              functionSelector && APIMeals.slice(0, doze).map((receita, index) => (
+                <Card
+                  id={ receita.idMeal }
                   key={ Math.random() }
-                  src={ receita.strMealThumb }
-                  alt="img"
-                  data-testid={ `${index}-card-img` }
+                  nome={ receita.strMeal }
+                  srcImg={ receita.strMealThumb }
+                  index={ index }
                 />
-              </div>
-            ))}
-            {!functionSelector
-          && API.slice(0, doze).map((receita, index) => (
-            <div key={ Math.random() } data-testid={ `${index}-recipe-card` }>
-              <h4
-                key={ Math.random() }
-                data-testid={ `${index}-card-name` }
-              >
-                {receita.strDrink}
-              </h4>
-              <img
-                key={ Math.random() }
-                src={ receita.strDrinkThumb }
-                alt="img"
-                data-testid={ `${index}-card-img` }
-              />
-            </div>
-          ))}
+              ))
+            }
+
+            {
+              !functionSelector
+           && APIDrinks.slice(0, doze).map((receita, index) => (
+             <Card
+               id={ receita.idDrink }
+               key={ Math.random() }
+               nome={ receita.strDrink }
+               srcImg={ receita.strDrinkThumb }
+               index={ index }
+             />
+           ))
+            }
           </div>
         )}
-      {renderAlert
+        {renderAlert
       && global.alert('Sorry, we haven\'t found any recipes for these filters.')}
 
+      </div>
+      <Footer />
     </div>
   );
 }

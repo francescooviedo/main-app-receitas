@@ -1,0 +1,7 @@
+.footercss {
+    display: flex;
+    background-color: grey;
+    opacity: 75%;
+    width: 100%;
+    justify-content: center;
+}
