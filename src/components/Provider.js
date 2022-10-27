@@ -70,6 +70,8 @@ function Provider({ children }) {
     APIMeals,
     condicionalRender,
     APIDrinks,
+    categoryDrink,
+    categoryMeal,
   ]);
 
   return (
