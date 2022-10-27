@@ -1,25 +1,27 @@
 .receitasContainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: space-between;  
-    
+  align-content: space-between;
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: row;
+  justify-content: center;
+
 }
+
 .recipeCard {
-    flex-basis: 18%;
-    width: 110px;
-    height: 360px;
-    border: 1px solid rgb(146, 143, 143);
-    text-align: center;
-    margin: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
+  border: 1px solid rgb(146, 143, 143);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  flex-basis: 18%;
+  height: 360px;
+  margin: 10px;
+  text-align: center;
+  transition: 0.3s;
+  width: 110px;
 }
-.recipeCard img{
-    height: 71%;
+
+.recipeCard img {
+  height: 71%;
 }
+
 .recipeCard:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
-  
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
