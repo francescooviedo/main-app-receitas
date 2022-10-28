@@ -135,6 +135,7 @@ export default function RecipeDetails({ match: { url } }) {
                 nome={ receita.strMeal }
                 srcImg={ receita.strMealThumb }
                 index={ index }
+                type={ type === 'meals' ? 'drinks' : 'meals' }
               />
             ))
         }
@@ -148,6 +149,7 @@ export default function RecipeDetails({ match: { url } }) {
                 nome={ receita.strDrink }
                 srcImg={ receita.strDrinkThumb }
                 index={ index }
+                type={ type === 'meals' ? 'drinks' : 'meals' }
               />
             ))
         }
