@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import MyContext from '../Context/MyContext';
 import { Link } from 'react-router-dom';
 import CardRecommendations from '../components/CardRecommentations';
 import shareIcon from '../images/shareIcon.svg';
 // import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../images/whiteHeartIcon.svg';
-
 const copy = require('clipboard-copy');
 
 const negative1 = -1;
 
 export default function RecipeDetails({ match: { url } }) {
+  const { setinProgress, setEParalelo } = useContext(MyContext);
   const [info, setInfo] = useState({});
   const [renderVideo, setRenderVideo] = useState('');
   const [drinksRecommendations, setDrinksRecommendations] = useState([]);
@@ -22,8 +24,6 @@ export default function RecipeDetails({ match: { url } }) {
 
   useEffect(() => {
     const requestAPI = async () => {
-      // drinks  id = 11019
-      // meals id = 52874
       const arrayUrl = url.split('/');
       const drinkOrFood = arrayUrl[1];
       const urlNumber = arrayUrl[2];
@@ -35,6 +35,7 @@ export default function RecipeDetails({ match: { url } }) {
       const result = await response.json();
       setInfo(result[drinkOrFood][0]);
       setRenderVideo(drinkOrFood);
+      setinProgress(result[drinkOrFood][0]);
     };
     requestAPI();
   }, [url]);
@@ -79,6 +80,21 @@ export default function RecipeDetails({ match: { url } }) {
   };
 
   const ingredientsAndMeasures = createIngredientsAndMeasuresObj();
+  // ************* MOCK PROGRESSO *************** //
+  const history = useHistory();
+  const redirecttoProgress = () => {
+    if (url.includes('/drinks')) {
+      setEParalelo([]);
+      history.push(`${url}/in-progress`);
+    }
+    if (url.includes('/meals')) {
+      history.push(`${url}/in-progress`);
+    }
+  };
+  const redirecttoProgress2 = () => {
+    console.log(info);
+  };
+    // ************* MOCK PROGRESSO *************** //
 
   const copyLink = () => {
     const link = `http://localhost:3000/${type}/${id}`;
@@ -122,6 +138,11 @@ export default function RecipeDetails({ match: { url } }) {
             </div>
           )
       }
+      {/* // ************* MOCK PROGRESSO *************** // */}
+
+      <button type="button" onClick={ () => redirecttoProgress() }>progess</button>
+      <button type="button" onClick={ () => redirecttoProgress2() }>progess2</button>
+      {/* // ************* MOCK PROGRESSO *************** // */}
       <h4>Recomendações</h4>
 
       <div style={ { display: 'flex' } }>
