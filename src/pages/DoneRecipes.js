@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import oneDrinks from '../helpers/MockDrinks';
+import mockDoneRecipes from '../helpers/mockDoneRecipes';
 
 export default function DoneRecipes() {
   const [filter, setFilter] = useState('all');
@@ -18,9 +18,8 @@ export default function DoneRecipes() {
   // const [activeFilter, setFilter] = useState('');
 
   const key = 'doneRecipes';
-  const mockData = oneDrinks;
 
-  window.localStorage.setItem(key, JSON.stringify(mockData));
+  window.localStorage.setItem(key, JSON.stringify(mockDoneRecipes));
   const storage = localStorage.getItem('doneRecipes');
   console.log(storage);
 
