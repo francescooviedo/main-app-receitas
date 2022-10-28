@@ -5,8 +5,8 @@ import MyContext from '../Context/MyContext';
 import { Link } from 'react-router-dom';
 import CardRecommendations from '../components/CardRecommentations';
 import shareIcon from '../images/shareIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../images/whiteHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 const negative1 = -1;
@@ -20,6 +20,8 @@ export default function RecipeDetails({ match: { url } }) {
   const [type, setType] = useState('');
   const [id, setId] = useState('');
   const [copied, setCopied] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const six = 6;
 
   useEffect(() => {
@@ -35,7 +37,19 @@ export default function RecipeDetails({ match: { url } }) {
       const result = await response.json();
       setInfo(result[drinkOrFood][0]);
       setRenderVideo(drinkOrFood);
+
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (inProgressRecipes) {
+        return Object.keys(inProgressRecipes[drinkOrFood])
+          .includes(urlNumber) ? setInProgress(true) : setInProgress(false);
+      }
+
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (favoriteRecipes) {
+        favoriteRecipes.forEach((recipe) => recipe.id === urlNumber && setFavorite(true));
+      }
       setinProgress(result[drinkOrFood][0]);
+
     };
     requestAPI();
   }, [url]);
@@ -53,7 +67,7 @@ export default function RecipeDetails({ match: { url } }) {
       setDrinksRecommendations(resultsDrinks.drinks);
     };
     requestAPIs();
-  }, []);
+  }, [id]);
 
   const getIngredientsAndMeasures = (obj, prefix) => {
     const array = [];
@@ -101,6 +115,15 @@ export default function RecipeDetails({ match: { url } }) {
     copy(link);
     setCopied(true);
   };
+
+  // const getInProgressRecipes = () => {
+  //   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   if (inProgressRecipes) {
+  //     inProgressRecipes.forEach((recipe) => recipe.id === id && setInProgress(true));
+  //   }
+  // };
+
+  // const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   return (
     <div>
@@ -183,7 +206,7 @@ export default function RecipeDetails({ match: { url } }) {
           type="button"
           style={ { position: 'fixed', bottom: '0px' } }
         >
-          Start Recipe
+          { inProgress ? 'Continue Recipe' : 'Start Recipe' }
         </button>
       </Link>
       <button
@@ -199,7 +222,11 @@ export default function RecipeDetails({ match: { url } }) {
         Compartilhar
       </button>
       { copied && <p>Link copied!</p>}
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
+      <img
+        src={ favorite ? blackHeartIcon : whiteHeartIcon }
+        alt="favoriteIcon"
+        data-testid="favorite-btn"
+      />
     </div>
   );
 }
