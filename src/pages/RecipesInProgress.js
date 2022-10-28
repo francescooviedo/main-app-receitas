@@ -11,6 +11,7 @@ export default function RecipesInProgress() {
   const { location: { pathname } } = useHistory();
   const { estadoParalelo, setEParalelo } = useContext(MyContext);
   const conditionalRender = pathname.includes('/meals');
+
   useEffect(() => {
     const chamadaDeApi = async () => {
       if (pathname.includes('meals')) {
