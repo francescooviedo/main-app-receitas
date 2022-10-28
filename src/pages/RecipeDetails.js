@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import MyContext from '../Context/MyContext';
-import { Link } from 'react-router-dom';
 import CardRecommendations from '../components/CardRecommentations';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+
 const copy = require('clipboard-copy');
 
 const negative1 = -1;
@@ -49,10 +49,9 @@ export default function RecipeDetails({ match: { url } }) {
         favoriteRecipes.forEach((recipe) => recipe.id === urlNumber && setFavorite(true));
       }
       setinProgress(result[drinkOrFood][0]);
-
     };
     requestAPI();
-  }, [url]);
+  }, [url, setinProgress]);
 
   useEffect(() => {
     const requestAPIs = async () => {

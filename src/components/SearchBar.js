@@ -21,7 +21,7 @@ export default function SearchBar() {
   const clickMeals = async () => {
     if (radio === 'ingrediente') {
       const ingredientesApi = await mealsAPI(`filter.php?i=${inputSearch}`);
-      console.log(ingredientesApi);
+      console.log(ingredientesApi.meals);
       setAPIMeals(ingredientesApi.meals);
     }
     if (radio === 'nome') {
