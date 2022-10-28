@@ -1,12 +1,21 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import oneDrinks from '../helpers/MockDrinks';
 
 export default function DoneRecipes() {
-  const [doneRecipes, setDoneRecipes] = useState([]);
-  const [activeFilter, setFilter] = useState('');
+  const [filter, setFilter] = useState('all');
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+
+  // console.log(doneRecipes);
+
+  const renderRecipes = filter === 'all'
+    ? doneRecipes
+    : doneRecipes.filter((meal) => meal.type === filter);
+  // const [doneRecipes, setDoneRecipes] = useState([]);
+  // const [activeFilter, setFilter] = useState('');
 
   const key = 'doneRecipes';
   const mockData = oneDrinks;
@@ -17,9 +26,9 @@ export default function DoneRecipes() {
 
   // console.log(doneRecipes);
 
-  useEffect(() => {
-    setDoneRecipes(JSON.parse(localStorage.getItem('doneRecipes')));
-  }, []);
+  // useEffect(() => {
+  //   setDoneRecipes(JSON.parse(localStorage.getItem('doneRecipes')));
+  // }, []);
 
   // console.log(doneRecipes[0]['drinks']);
 
@@ -31,7 +40,7 @@ export default function DoneRecipes() {
           type="button"
           data-testid="filter-by-all-btn"
           onClick={ () => {
-            setFilter('');
+            setFilter('all');
           } }
         >
           All
@@ -55,12 +64,26 @@ export default function DoneRecipes() {
           Drinks
         </button>
       </div>
-      {/* {console.log(doneRecipes[0]['drinks'])} */}
-      {doneRecipes.length !== 0 && doneRecipes[0]['drinks']
+      <section>
+        { renderRecipes.length === 0
+          ? (
+            <div>
+              <p>Sem receitas finalizadas</p>
+            </div>
+          )
+          : (
+            <DoneRecipeCard
+              food={ renderRecipes }
+            />
+          ) }
+      </section>
+
+      {/* {console.log(doneRecipes[0]['drinks'])}
+      {doneRecipes.length === 0 && doneRecipes[0]['drinks']
         // .filter((recipe) => recipe.type.includes(activeFilter))
         .map((recipe, index) => (
           <DoneRecipeCard key={ recipe.idDrink } recipe={ recipe } index={ index } />
-        )) }
+        )) } */}
 
       <Footer />
     </div>
