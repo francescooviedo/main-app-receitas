@@ -5,6 +5,7 @@ import CardRecommendations from '../components/CardRecommentations';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import
 
 const copy = require('clipboard-copy');
 

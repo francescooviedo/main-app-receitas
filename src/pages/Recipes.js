@@ -9,10 +9,10 @@ import CategoryFilter from '../components/CategoryFilter';
 import './Recipes.css';
 
 export default function Recipes() {
-  const history = useHistory();
+  const { location: { pathname } } = useHistory();
   const { APIMeals, APIDrinks, categoryDrink, categoryMeal } = useContext(MyContext);
   const renderAlert = APIMeals === null || APIDrinks === null;
-  const functionSelector = history.location.pathname === '/meals';
+  const functionSelector = pathname === '/meals';
   const doze = 12;
 
   return (
