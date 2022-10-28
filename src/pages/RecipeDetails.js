@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import CardRecommendations from '../components/CardRecommentations';
 import shareIcon from '../images/shareIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../images/whiteHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -19,6 +19,7 @@ export default function RecipeDetails({ match: { url } }) {
   const [id, setId] = useState('');
   const [copied, setCopied] = useState(false);
   const [inProgress, setInProgress] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const six = 6;
 
   useEffect(() => {
@@ -41,6 +42,11 @@ export default function RecipeDetails({ match: { url } }) {
       if (inProgressRecipes) {
         return Object.keys(inProgressRecipes[drinkOrFood])
           .includes(urlNumber) ? setInProgress(true) : setInProgress(false);
+      }
+
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (favoriteRecipes) {
+        favoriteRecipes.forEach((recipe) => recipe.id === urlNumber && setFavorite(true));
       }
     };
     requestAPI();
@@ -194,7 +200,11 @@ export default function RecipeDetails({ match: { url } }) {
         Compartilhar
       </button>
       { copied && <p>Link copied!</p>}
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
+      <img
+        src={ favorite ? blackHeartIcon : whiteHeartIcon }
+        alt="favoriteIcon"
+        data-testid="favorite-btn"
+      />
     </div>
   );
 }
