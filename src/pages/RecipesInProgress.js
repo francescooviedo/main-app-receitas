@@ -32,13 +32,18 @@ export default function RecipesInProgress() {
         if (localStorage.getItem(ENDPOINT) !== null) {
           setEParalelo(JSON.parse(localStorage.getItem(ENDPOINT)));
           setLoading(false);
-        }
-        if (localStorage.getItem(ENDPOINT) == null) {
+        } else if (localStorage.getItem(ENDPOINT) == null) {
           const { drinks } = await drinksAPI(`lookup.php?i=${ENDPOINT}`);
           setEParalelo(DetailsArray(drinks[0]));
           localStorage.setItem(ENDPOINT, JSON.stringify(DetailsArray(drinks[0])));
           setLoading(false);
         }
+        // if (localStorage.getItem(ENDPOINT) == null) {
+        //   const { drinks } = await drinksAPI(`lookup.php?i=${ENDPOINT}`);
+        //   setEParalelo(DetailsArray(drinks[0]));
+        //   localStorage.setItem(ENDPOINT, JSON.stringify(DetailsArray(drinks[0])));
+        //   setLoading(false);
+        // }
       }
     };
     chamadaDeApi();
