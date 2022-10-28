@@ -14,6 +14,8 @@ function Provider({ children }) {
   const [APIDrinks, setAPIDrinks] = useState([0, 1]);
   const [categoryMeal, setCategoryMeal] = useState([]);
   const [categoryDrink, setCategoryDrink] = useState([]);
+  const [inProgress, setinProgress] = useState({});
+  const [estadoParalelo, setEParalelo] = useState({});
 
   const handleChangeRadio = ({ target }) => {
     setRadio(target.value);
@@ -44,6 +46,10 @@ function Provider({ children }) {
     apiBebidas();
   }, []);
   const contextValue = useMemo(() => ({
+    estadoParalelo,
+    setEParalelo,
+    inProgress,
+    setinProgress,
     categoryDrink,
     setCategoryDrink,
     categoryMeal,
@@ -70,6 +76,8 @@ function Provider({ children }) {
     APIMeals,
     condicionalRender,
     APIDrinks,
+    inProgress,
+    estadoParalelo,
   ]);
 
   return (
