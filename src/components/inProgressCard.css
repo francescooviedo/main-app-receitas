@@ -1,0 +1,8 @@
+.ingredientes {
+  display: flex;
+  flex-direction: column;
+}
+
+.checado {
+  text-decoration: line-through solid black;
+}
