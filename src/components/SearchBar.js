@@ -21,6 +21,7 @@ export default function SearchBar() {
   const clickMeals = async () => {
     if (radio === 'ingrediente') {
       const ingredientesApi = await mealsAPI(`filter.php?i=${inputSearch}`);
+      console.log(ingredientesApi);
       setAPIMeals(ingredientesApi.meals);
     }
     if (radio === 'nome') {
@@ -54,12 +55,8 @@ export default function SearchBar() {
     }
   };
   useEffect(() => {
-    const DOZE = 12;
     if (APIMeals === null) {
       return console.log('A');
-    }
-    if (APIMeals.length > DOZE) {
-      console.log(APIMeals);
     }
     if (APIMeals.length === 1) {
       history.push(`/meals/${APIMeals[0].idMeal}`);
@@ -67,12 +64,8 @@ export default function SearchBar() {
   }, [APIMeals, history, functionSelector]);
 
   useEffect(() => {
-    const DOZE = 12;
     if (APIDrinks === null) {
       return console.log('A');
-    }
-    if (APIDrinks.length > DOZE) {
-      console.log(APIDrinks);
     }
     if (APIDrinks.length === 1) {
       history.push(`/drinks/${APIDrinks[0].idDrink}`);

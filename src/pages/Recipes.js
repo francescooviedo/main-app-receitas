@@ -11,8 +11,8 @@ import './Recipes.css';
 export default function Recipes() {
   const { location: { pathname } } = useHistory();
   const { APIMeals, APIDrinks, categoryDrink, categoryMeal } = useContext(MyContext);
-  const renderAlert = APIMeals === null;
-  const functionSelector = pathname === '/meals';
+  const renderAlert = APIMeals === null || APIDrinks === null;
+  const functionSelector = history.location.pathname === '/meals';
   const doze = 12;
 
   return (

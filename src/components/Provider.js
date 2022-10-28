@@ -78,6 +78,8 @@ function Provider({ children }) {
     APIDrinks,
     inProgress,
     estadoParalelo,
+    categoryDrink,
+    categoryMeal,
   ]);
 
   return (

@@ -2,6 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../Context/MyContext';
+import { Link } from 'react-router-dom';
+import CardRecommendations from '../components/CardRecommentations';
+import shareIcon from '../images/shareIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import blackHeartIcon from '../images/whiteHeartIcon.svg';
+const copy = require('clipboard-copy');
 
 const negative1 = -1;
 
@@ -9,12 +15,20 @@ export default function RecipeDetails({ match: { url } }) {
   const { setinProgress, setEParalelo } = useContext(MyContext);
   const [info, setInfo] = useState({});
   const [renderVideo, setRenderVideo] = useState('');
+  const [drinksRecommendations, setDrinksRecommendations] = useState([]);
+  const [mealsRecommendations, setMealsRecommendations] = useState([]);
+  const [type, setType] = useState('');
+  const [id, setId] = useState('');
+  const [copied, setCopied] = useState(false);
+  const six = 6;
+
   useEffect(() => {
     const requestAPI = async () => {
       const arrayUrl = url.split('/');
       const drinkOrFood = arrayUrl[1];
       const urlNumber = arrayUrl[2];
-
+      setType(drinkOrFood);
+      setId(urlNumber);
       const urlMeals = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${urlNumber}`;
       const urlDrink = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${urlNumber}`;
       const response = await fetch(drinkOrFood === 'meals' ? urlMeals : urlDrink);
@@ -25,6 +39,21 @@ export default function RecipeDetails({ match: { url } }) {
     };
     requestAPI();
   }, [url]);
+
+  useEffect(() => {
+    const requestAPIs = async () => {
+      const urlMealsRecommendations = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      const responseMeals = await fetch(urlMealsRecommendations);
+      const resultsMeals = await responseMeals.json();
+      setMealsRecommendations(resultsMeals.meals);
+
+      const urlDrinksRecommendations = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      const responseDrinks = await fetch(urlDrinksRecommendations);
+      const resultsDrinks = await responseDrinks.json();
+      setDrinksRecommendations(resultsDrinks.drinks);
+    };
+    requestAPIs();
+  }, []);
 
   const getIngredientsAndMeasures = (obj, prefix) => {
     const array = [];
@@ -67,6 +96,12 @@ export default function RecipeDetails({ match: { url } }) {
   };
     // ************* MOCK PROGRESSO *************** //
 
+  const copyLink = () => {
+    const link = `http://localhost:3000/${type}/${id}`;
+    copy(link);
+    setCopied(true);
+  };
+
   return (
     <div>
       <img
@@ -108,7 +143,63 @@ export default function RecipeDetails({ match: { url } }) {
       <button type="button" onClick={ () => redirecttoProgress() }>progess</button>
       <button type="button" onClick={ () => redirecttoProgress2() }>progess2</button>
       {/* // ************* MOCK PROGRESSO *************** // */}
+      <h4>Recomendações</h4>
 
+      <div style={ { display: 'flex' } }>
+
+        {
+          type === 'drinks' && mealsRecommendations
+            .slice(0, six).map((receita, index) => (
+              <CardRecommendations
+                id={ receita.idMeal }
+                key={ Math.random() }
+                nome={ receita.strMeal }
+                srcImg={ receita.strMealThumb }
+                index={ index }
+                type={ type === 'meals' ? 'drinks' : 'meals' }
+              />
+            ))
+        }
+
+        {
+          type === 'meals' && drinksRecommendations
+            .slice(0, six).map((receita, index) => (
+              <CardRecommendations
+                id={ receita.idDrink }
+                key={ Math.random() }
+                nome={ receita.strDrink }
+                srcImg={ receita.strDrinkThumb }
+                index={ index }
+                type={ type === 'meals' ? 'drinks' : 'meals' }
+              />
+            ))
+        }
+
+      </div>
+      <Link to={ `/${type}/${id}/in-progress` }>
+
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          style={ { position: 'fixed', bottom: '0px' } }
+        >
+          Start Recipe
+        </button>
+      </Link>
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ copyLink }
+      >
+        {' '}
+        <img
+          src={ shareIcon }
+          alt="search-icon"
+        />
+        Compartilhar
+      </button>
+      { copied && <p>Link copied!</p>}
+      <button type="button" data-testid="favorite-btn">Favoritar</button>
     </div>
   );
 }
