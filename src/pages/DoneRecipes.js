@@ -1,35 +1,21 @@
-// import React, { useState, useEffect } from 'react';
 import React, { useState } from 'react';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import mockDoneRecipes from '../helpers/mockDoneRecipes';
+import mockDoneRecipes from '../tests/mocks/mockDoneRecipes';
 
 export default function DoneRecipes() {
   const [filter, setFilter] = useState('all');
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
-  // console.log(doneRecipes);
-
   const renderRecipes = filter === 'all'
     ? doneRecipes
     : doneRecipes.filter((meal) => meal.type === filter);
-  // const [doneRecipes, setDoneRecipes] = useState([]);
-  // const [activeFilter, setFilter] = useState('');
 
   const key = 'doneRecipes';
-
   window.localStorage.setItem(key, JSON.stringify(mockDoneRecipes));
   const storage = localStorage.getItem('doneRecipes');
   console.log(storage);
-
-  // console.log(doneRecipes);
-
-  // useEffect(() => {
-  //   setDoneRecipes(JSON.parse(localStorage.getItem('doneRecipes')));
-  // }, []);
-
-  // console.log(doneRecipes[0]['drinks']);
 
   return (
     <div>
@@ -76,13 +62,6 @@ export default function DoneRecipes() {
             />
           ) }
       </section>
-
-      {/* {console.log(doneRecipes[0]['drinks'])}
-      {doneRecipes.length === 0 && doneRecipes[0]['drinks']
-        // .filter((recipe) => recipe.type.includes(activeFilter))
-        .map((recipe, index) => (
-          <DoneRecipeCard key={ recipe.idDrink } recipe={ recipe } index={ index } />
-        )) } */}
 
       <Footer />
     </div>
