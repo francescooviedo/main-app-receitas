@@ -1,41 +1,43 @@
 import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ShareButton from './ShareButton';
 
-function DoneRecipeCard({ food }) => {
-const history = useHistory();
-
-const redirectToDetails = ({ id, type }) => {
-  if (type === 'meal') {
-    history.push(`/meals/${id}`);
-  } else {
-    history.push(`/drinks/${id}`);
-  }
-};
-
-return(
+export default function DoneRecipeCard({ food: meals }) {
+  // const history = useHistory();
+  // const redirectToDetails = (id, type) => {
+  //   if (type === 'meal') {
+  //     history.push(`/meals/${id}`);
+  //   } else {
+  //     history.push(`/drinks/${id}`);
+  //   }
+  // };
+  return (
     meals.map((receita, index) => (
       <div
         key={ Math.random() }
       >
 
-        <Link to={ receita.type === 'meal' ? `/meals/${receita.id}` : `/drinks/${receita.id}` }>
-          <h3
-            data-testid={ `${index}-horizontal-name` }
-          >
+        <Link
+          to={ receita.type === 'meal'
+            ? `/meals/${receita.id}`
+            : `/drinks/${receita.id}` }
+        >
+          <h3 data-testid={ `${index}-horizontal-name` }>
             { receita.name }
           </h3>
         </Link>
-
-        {/* <Link to={ receita.type === 'meal' ? `/meals/${receita.id}` : `/drinks/${receita.id}` }> */}
+        <Link
+          to={ receita.type === 'meal'
+            ? `/meals/${receita.id}`
+            : `/drinks/${receita.id}` }
+        >
           <img
             src={ receita.image }
             alt="Imagem da receita"
             data-testid={ `${index}-horizontal-image` }
-            onClick={ () => redirectToDetails }
           />
+        </Link>
 
-        {/* </Link> */}
         <div className="done-recipe-describe">
           <div className="done-recipe-top">
             <p
@@ -48,13 +50,13 @@ return(
 
             <ShareButton
               dataId={ `${index}-horizontal-share-btn` }
-              URL={ receita.type === 'meal' ? `/meals/${receita.id}` : `/drinks/${receita.id}` }
+              URL={ receita.type === 'meal'
+                ? `/meals/${receita.id}`
+                : `/drinks/${receita.id}` }
             />
           </div>
 
-          <p
-            data-testid={ `${index}-horizontal-done-date` }
-          >
+          <p data-testid={ `${index}-horizontal-done-date` }>
             { receita.doneDate }
           </p>
 
@@ -75,8 +77,6 @@ return(
     ))
   );
 }
-
-export default DoneRecipeCard;
 
 // import React from 'react';
 // import PropTypes from 'prop-types';
