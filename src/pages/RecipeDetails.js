@@ -18,6 +18,7 @@ export default function RecipeDetails({ match: { url } }) {
   const [type, setType] = useState('');
   const [id, setId] = useState('');
   const [copied, setCopied] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
   const six = 6;
 
   useEffect(() => {
@@ -35,6 +36,12 @@ export default function RecipeDetails({ match: { url } }) {
       const result = await response.json();
       setInfo(result[drinkOrFood][0]);
       setRenderVideo(drinkOrFood);
+
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (inProgressRecipes) {
+        return Object.keys(inProgressRecipes[drinkOrFood])
+          .includes(urlNumber) ? setInProgress(true) : setInProgress(false);
+      }
     };
     requestAPI();
   }, [url]);
@@ -52,7 +59,7 @@ export default function RecipeDetails({ match: { url } }) {
       setDrinksRecommendations(resultsDrinks.drinks);
     };
     requestAPIs();
-  }, []);
+  }, [id]);
 
   const getIngredientsAndMeasures = (obj, prefix) => {
     const array = [];
@@ -85,6 +92,15 @@ export default function RecipeDetails({ match: { url } }) {
     copy(link);
     setCopied(true);
   };
+
+  // const getInProgressRecipes = () => {
+  //   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   if (inProgressRecipes) {
+  //     inProgressRecipes.forEach((recipe) => recipe.id === id && setInProgress(true));
+  //   }
+  // };
+
+  // const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   return (
     <div>
@@ -162,7 +178,7 @@ export default function RecipeDetails({ match: { url } }) {
           type="button"
           style={ { position: 'fixed', bottom: '0px' } }
         >
-          Start Recipe
+          { inProgress ? 'Continue Recipe' : 'Start Recipe' }
         </button>
       </Link>
       <button
