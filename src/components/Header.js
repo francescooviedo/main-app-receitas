@@ -69,7 +69,6 @@ export default function Header({ title, header, profile, search }) {
 
       }
       {
-
         hidden
         && (<SearchBar />)
       }
