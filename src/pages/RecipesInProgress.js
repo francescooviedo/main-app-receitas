@@ -56,6 +56,9 @@ export default function RecipesInProgress() {
       <div>
         {!conditionalRender
       && <ProgrressCard
+        alcoholicOrNot={ estadoParalelo[0].strAlcoholic }
+        nationality=""
+        type="drink"
         id={ estadoParalelo[0].idDrink }
         img={ estadoParalelo[0].strDrinkThumb }
         title={ estadoParalelo[0].strDrink }
@@ -67,6 +70,9 @@ export default function RecipesInProgress() {
       <div>
         {conditionalRender
       && <ProgrressCard
+        alcoholicOrNot=""
+        nationality={ estadoParalelo[0].strArea }
+        type="meal"
         id={ estadoParalelo[0].idMeal }
         img={ estadoParalelo[0].strMealThumb }
         title={ estadoParalelo[0].strMeal }

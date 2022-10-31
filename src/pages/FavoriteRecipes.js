@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
-import mockDoneRecipes from '../tests/mocks/mockDoneRecipes';
+// import MyContext from '../Context/MyContext';
+// const {} = useContext(MyContext)
 
 export default function FavoriteRecipes() {
   const key = 'favoriteRecipes';

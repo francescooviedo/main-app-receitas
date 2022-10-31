@@ -1,8 +1,10 @@
-import React, { useContext, useState } from 'react';
-import './inProgressCard.css';
+import React, { useContext, useEffect, useState } from 'react';
+import './componentsCss/inProgressCard.css';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../Context/MyContext';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function ProgrressCard({
   img,
@@ -11,12 +13,45 @@ export default function ProgrressCard({
   instructions,
   ingredients,
   id,
+  type,
+  nationality,
+  alcoholicOrNot,
+
 }) {
+  const [isDone, setIsDone] = useState(true);
+  const [isDone2, setIsDone2] = useState(true);
+  const [favorite, setFavorite] = useState(false);
   const [compartilhou, setcompartilhou] = useState(false);
   const { setEParalelo } = useContext(MyContext);
   const { location: { pathname } } = useHistory();
+  const history = useHistory();
+
+  useEffect(() => {
+    const arrFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log('rerender');
+    if (arrFavorite !== null) {
+      arrFavorite.forEach((favorito) => {
+        if (favorito.id === id) {
+          setFavorite(true);
+        }
+      });
+    } else {
+      setFavorite(false);
+    }
+  }, []);
+  useEffect(() => {
+    const a = ingredients.filter((ingredient) => ingredient.isChecked !== true);
+    if (a.length === 0) {
+      setIsDone(false);
+    } else {
+      setIsDone(true);
+    }
+  }, [isDone2]);
+  const redirectDone = '/done-recipes';
   const handleChange = (e) => {
+    setIsDone2(!isDone2);
     const localStorageItem = JSON.parse(localStorage.getItem(id));
+    console.log(localStorageItem);
     localStorageItem[1].forEach((element) => {
       if (element.ingredient === e.name) {
         element.isChecked = !element.isChecked;
@@ -25,12 +60,89 @@ export default function ProgrressCard({
     localStorage.setItem(id, JSON.stringify(localStorageItem));
     setEParalelo(localStorageItem);
   };
+
   const clickBotao = async (e) => {
-    console.log(e);
     if (e === 'compartilhar') {
       const path = pathname.replace('/in-progress', '');
       await navigator.clipboard.writeText(`http://localhost:3000${path}`);
       setcompartilhou(true);
+    }
+    if (e === 'finish') {
+      history.push(redirectDone);
+    }
+  };
+  const favoriteButton = () => {
+    if (favorite === true) {
+      const removeFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const favoritosFinal = removeFav.filter((favorito) => favorito.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoritosFinal));
+      console.log(favoritosFinal);
+      setFavorite(false);
+    }
+    if (favorite === false) {
+      const addFav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+      if (addFav !== null) {
+        const objetoFavorito = {
+          id,
+          type,
+          nationality,
+          category,
+          alcoholicOrNot,
+          name: title,
+          image: img,
+        };
+        const addFav1 = [...addFav, objetoFavorito];
+        localStorage.setItem('favoriteRecipes', JSON.stringify(addFav1));
+      }
+      if (addFav === null) {
+        const objetoFavorito = {
+          id,
+          type,
+          nationality,
+          category,
+          alcoholicOrNot,
+          name: title,
+          image: img,
+        };
+        const paralela = [objetoFavorito];
+        localStorage.setItem('favoriteRecipes', JSON.stringify(paralela));
+      }
+      setFavorite(true);
+    }
+  };
+  const clickBotaoFinish = () => {
+    const done = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (done === null) {
+      console.log('vazio');
+      const objetocomida = {
+        id,
+        type,
+        nationality,
+        category,
+        alcoholicOrNot,
+        name: title,
+        image: img,
+      };
+      const paralela = [objetocomida];
+
+      localStorage.setItem('doneRecipes', JSON.stringify(paralela));
+      history.push(redirectDone);
+    }
+    if (done !== null) {
+      console.log(done);
+      const objetocomida = {
+        id,
+        type,
+        nationality,
+        category,
+        alcoholicOrNot,
+        name: title,
+        image: img,
+      };
+      const addfinished = [...done, objetocomida];
+      localStorage.setItem('doneRecipes', JSON.stringify(addfinished));
+      history.push(redirectDone);
     }
   };
   return (
@@ -61,7 +173,7 @@ export default function ProgrressCard({
 
           <label
             htmlFor={ ingrediente.ingredient }
-            key={ Math.random() }
+            key={ index }
             data-testid={ `${index}-ingredient-step` }
             className={ ingrediente.isChecked ? 'checado' : 'naochecado' }
           >
@@ -88,19 +200,24 @@ export default function ProgrressCard({
       </button>
       <button
         name="favorite"
-        onClick={ (e) => clickBotao(e.target.name) }
-        data-testid="favorite-btn"
+        onClick={ favoriteButton }
         type="button"
       >
-        favorite
+        <img
+          data-testid="favorite-btn"
+          name="favorite"
+          src={ favorite ? blackHeartIcon : whiteHeartIcon }
+          alt="favoriteIcon"
+        />
       </button>
       <button
         name="finish"
-        onClick={ (e) => clickBotao(e.target.name) }
+        onClick={ clickBotaoFinish }
         data-testid="finish-recipe-btn"
         type="button"
+        disabled={ isDone }
       >
-        finish
+        Finish Recipe
       </button>
       {compartilhou && <h1>Link copied!</h1>}
     </div>
