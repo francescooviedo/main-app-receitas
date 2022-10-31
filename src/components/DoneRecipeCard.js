@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ShareButton from './ShareButton';
 import './componentsCss/DoneRecipeCard.css';
+import FavoriteButton from './FavoriteButton';
 
 export default function DoneRecipeCard({ food: meals }) {
   return (
@@ -47,6 +48,10 @@ export default function DoneRecipeCard({ food: meals }) {
               URL={ receita.type === 'meal'
                 ? `/meals/${receita.id}`
                 : `/drinks/${receita.id}` }
+            />
+            <FavoriteButton
+              dataId={ `${index}-horizontal-favorite-btn` }
+              receita={ receita }
             />
           </div>
 
