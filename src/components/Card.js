@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './card.css';
+import './componentsCss/card.css';
 import { useHistory } from 'react-router-dom';
 
 export default function Card({ nome, srcImg, index, id }) {

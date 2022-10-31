@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './inProgressCard.css';
+import './componentsCss/inProgressCard.css';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../Context/MyContext';

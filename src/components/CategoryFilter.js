@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import './CategoryFilter.css';
+import './componentsCss/CategoryFilter.css';
 import MyContext from '../Context/MyContext';
 import mealsAPI from '../helpers/functionsAPI';
 import drinksAPI from '../helpers/drinkAPI';

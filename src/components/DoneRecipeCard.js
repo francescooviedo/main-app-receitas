@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ShareButton from './ShareButton';
-import './DoneRecipeCard.css';
+import './componentsCss/DoneRecipeCard.css';
 
 export default function DoneRecipeCard({ food: meals }) {
   return (

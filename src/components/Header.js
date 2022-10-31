@@ -5,7 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import MyContext from '../Context/MyContext';
-import './Header.css';
+import './componentsCss/Header.css';
 
 export default function Header({ title, header, profile, search }) {
   const history = useHistory();
