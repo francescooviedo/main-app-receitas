@@ -47,7 +47,7 @@ export default function RecipesInProgress() {
       }
     };
     chamadaDeApi();
-  }, []);
+  }, [pathname, setEParalelo]);
   if (loading) {
     return <h1>loading...</h1>;
   }
