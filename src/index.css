@@ -11,7 +11,7 @@ html, body {
 html {
   display: table;
   margin: auto;
-  background-image: url('/home/francesco/Desktop/gitseila/sd-024-b-project-recipes-app/src/favicon.webp');
+  background-image: url('src/favicon.webp');
   background-repeat: no-repeat;
   background-attachment: fixed;
 
