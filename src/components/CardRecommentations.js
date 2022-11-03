@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './componentsCss/card.css';
-// import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 export default function Card({ nome, srcImg, index, id, type }) {
@@ -14,18 +13,18 @@ export default function Card({ nome, srcImg, index, id, type }) {
         key={ Math.random() }
         data-testid={ `${index}-recommendation-card` }
       >
-        <h4
-          key={ Math.random() }
-          data-testid={ `${index}-recommendation-title` }
-        >
-          {nome}
-        </h4>
         <img
           key={ Math.random() }
           src={ srcImg }
           alt="img"
           data-testid={ `${index}-card-img` }
         />
+        <h4
+          key={ Math.random() }
+          data-testid={ `${index}-recommendation-title` }
+        >
+          {nome}
+        </h4>
       </div>
     </Link>
   );

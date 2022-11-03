@@ -25,7 +25,7 @@ export default function Card({ nome, srcImg, index, id }) {
       text-center
       px-1
       py-2
-      bg-vesuvius-200
+      bg-vesuvius-300
       "
       aria-hidden
       role="button"
@@ -36,19 +36,21 @@ export default function Card({ nome, srcImg, index, id }) {
       <img
         width="100px"
         heigth="100px"
-        className="w-full rounded "
+        className="w-full rounded shadow"
         key={ Math.random() }
         src={ srcImg }
         alt="img"
         data-testid={ `${index}-card-img` }
       />
-      <h4
-        className="text-vesuvius-900 text-base "
-        key={ Math.random() }
-        data-testid={ `${index}-card-name` }
-      >
-        {nome}
-      </h4>
+      <div className="rounded bg-vesuvius-200 my-1 py-1 shadow">
+        <h4
+          className="text-vesuvius-900 text-base "
+          key={ Math.random() }
+          data-testid={ `${index}-card-name` }
+        >
+          {nome}
+        </h4>
+      </div>
     </div>
   );
 }

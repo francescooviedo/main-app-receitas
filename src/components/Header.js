@@ -30,9 +30,10 @@ export default function Header({ title, header, profile, search }) {
       items-stretch
      flex-col
      fixed-top-0
+     py-4
      "
     >
-      <div className="flex items-stretch py-4">
+      <div className="flex items-stretch">
 
         <div className="px-10">
           {
@@ -52,7 +53,7 @@ export default function Header({ title, header, profile, search }) {
         )
           }
         </div>
-        <div className="text-center px-10 ">
+        <div className="text-center px-7">
           {
             header
         && (

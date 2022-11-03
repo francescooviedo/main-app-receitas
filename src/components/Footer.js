@@ -15,12 +15,11 @@ function Footer() {
       overflow-hidden
       shadow-lg
       text-center
-      px-2
+      px-3
       py-2
       bg-vesuvius-200
-      rounded  fixed bottom-0"
+      fixed bottom-0"
         data-testid="footer"
-      // style={ { position: 'fixed', bottom: '0px' } }
       >
         <Link to="/drinks">
 
@@ -30,6 +29,7 @@ function Footer() {
             <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drink" />
           </button>
         </Link>
+
         <Link to="/meals">
 
           <button

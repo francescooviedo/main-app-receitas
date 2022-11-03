@@ -151,7 +151,7 @@ export default function RecipeDetails({ match: { url } }) {
 
   return (
     <div className="flex-col text-center  items-center bg-vesuvius-200">
-      <div className="">
+      <div className="mx-2 bg-vesuvius-700 rounded my-2">
         <img
           className="w-full overflow-hidden rounded px-1 py-1"
           data-testid="recipe-photo"
@@ -160,34 +160,41 @@ export default function RecipeDetails({ match: { url } }) {
         />
       </div>
       <h3
-        className="text-vesuvius-900"
+        className="text-white bg-vesuvius-700 rounded mx-1 my-1"
         data-testid="recipe-title"
       >
         {info.strDrink || info.strMeal}
 
       </h3>
       <h4
-        className="text-vesuvius-700"
+        className="text-white bg-vesuvius-600 rounded mx-1 my-1 "
         data-testid="recipe-category"
       >
         {info.strAlcoholic || info.strCategory}
 
       </h4>
-      <ul>
+      <ul
+        className="bg-vesuvius-500
+      rounded mx-1 my-1 grid grid-cols-1 place-items-center"
+      >
         {
           ingredientsAndMeasures.map((ingredient, index) => (
-            <li
-              className="text-vesuvius-700"
+            <div
+              className="rounded  my-1 bg-vesuvius-700 text-white mx-1 my-1 px-10"
               key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
             >
-              {`${Object.keys(ingredient)[0]} -  ${Object.values(ingredient)[0]}`}
-            </li>
+              <li
+                key={ index }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {`${Object.keys(ingredient)[0]} -  ${Object.values(ingredient)[0]}`}
+              </li>
+            </div>
           ))
         }
       </ul>
       <p
-        className="px-1 py-1 text-vesuvius-700"
+        className="px-1 py-1 bg-vesuvius-400 mx-1 rounded text-vesuvius-900"
         data-testid="instructions"
       >
         {info.strInstructions}
@@ -196,7 +203,7 @@ export default function RecipeDetails({ match: { url } }) {
       {
         renderVideo === 'meals'
           && (
-            <div className="video-responsive">
+            <div className="my-1 mx-3">
               <iframe
                 data-testid="video"
                 src={ `https://www.youtube.com/embed/${info.strYoutube.split('=').slice(negative1).pop()}` }
@@ -207,6 +214,7 @@ export default function RecipeDetails({ match: { url } }) {
             </div>
           )
       }
+      <div className='bg-vesuvius-300 rounded mx-1'>
       <h4 className="text-vesuvius-900">Recomendações</h4>
       <div
         style={ { display: 'flex' } }
@@ -238,7 +246,8 @@ export default function RecipeDetails({ match: { url } }) {
             ))
         }
       </div>
-      <div className=" py-2 grid grid-cols-3 gap-4 content-evenly">
+      </div>
+      <div className=" py-2 grid grid-cols-3 gap-3 content-evenly bg-vesuvius-200">
         <div>
           <Link to={ `/${type}/${id}/in-progress` }>
             <button

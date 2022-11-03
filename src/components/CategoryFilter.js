@@ -56,7 +56,8 @@ export default function CategoryFilter({ apiType }) {
          px-2 rounded
          focus:outline-none
           focus:shadow-outline
-      text-vesuvius-700 "
+      text-vesuvius-700 
+      mx-0.5"
         type="button"
         data-testid="All-category-filter"
         onClick={
@@ -78,6 +79,9 @@ export default function CategoryFilter({ apiType }) {
             py-1 px-4 rounded
              focus:outline-none
               focus:shadow-outline
+              mx-0.5
+              my-0.5
+              shadow
           text-vesuvius-700 "
           onClick={
             apiType === categoryMeal

@@ -105,14 +105,10 @@ export default function Login() {
         <div className="">
 
           <button
-            className="
-          bg-vesuvius-500
-           hover:bg-vesuvius-700
-            text-white font-bold
-            py-2 px-4 rounded
-             focus:outline-none
-              focus:shadow-outline
-          text-vesuvius-700 "
+className={enableButton 
+            ? 'text-vesuvius-200 bg-vesuvius-800/30 rounded py-2 px-4'
+            : "bg-vesuvius-500 hover:bg-vesuvius-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-vesuvius-700 "
+}
             type="button"
             data-testid="login-submit-btn"
             onClick={ () => enterApp() }

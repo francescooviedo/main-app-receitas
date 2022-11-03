@@ -29,7 +29,7 @@ export default function DoneRecipeCard({ food: meals }) {
               : `/drinks/${receita.id}` }
           >
             <img
-              className="rounded mx-auto bg-vesuvius-300 py-1 rounded my-1"
+              className="mx-auto bg-vesuvius-300 py-1 rounded my-1"
               width="250px"
               src={ receita.image }
               alt="Imagem da receita"

@@ -148,32 +148,42 @@ export default function ProgrressCard({
   };
   return (
     <div className="px-2 flex-col bg-vesuvius-200">
-      <h4
-        className="text-vesuvius-700 text-center"
-        data-testid="recipe-title"
-      >
-        {title}
-      </h4>
-      <h4
-        className="text-vesuvius-600 text-center my-4"
-        data-testid="recipe-category"
-      >
-        {category}
-      </h4>
-      <img
-        className="mx-auto rounded my-4"
-        data-testid="recipe-photo"
-        src={ img }
-        alt="img"
-        width="100"
-      />
-      <p
-        className="px-1 py-1 text-vesuvius-700"
-        data-testid="instructions"
-      >
-        {instructions}
-      </p>
-      <div className="ingredientes">
+      <div className="mx-2 bg-vesuvius-700 rounded text-center">
+        <h4
+          className="text-white"
+          data-testid="recipe-title"
+        >
+          {title}
+        </h4>
+      </div>
+      {' '}
+      <div>
+
+        <h4
+          className="text-white bg-vesuvius-600 rounded mx-1 my-1 text-center"
+          data-testid="recipe-category"
+        >
+          {category}
+        </h4>
+      </div>
+      <div className="mx-2 bg-vesuvius-700 rounded my-2">
+        <img
+          className="w-full overflow-hidden rounded px-1 py-1"
+          data-testid="recipe-photo"
+          src={ img }
+          alt="img"
+          width="100"
+        />
+      </div>
+      <div className="bg-vesuvius-600 mx-1 rounded px-1">
+        <p
+          className="px-1 py-1 text-white"
+          data-testid="instructions"
+        >
+          {instructions}
+        </p>
+      </div>
+      <div className="grid grid-col-1 bg-vesuvius-500 rounded">
         {ingredients.map((ingrediente, index) => (
 
           <label
@@ -182,8 +192,8 @@ export default function ProgrressCard({
             data-testid={ `${index}-ingredient-step` }
             className={
               ingrediente.isChecked
-                ? 'accent-vesuvius-700 line-through decoration-vesuvius-900 text-vesuvius-800'
-                : 'text-vesuvius-900'
+                ? 'accent-vesuvius-700 line-through decoration-vesuvius-900 text-vesuvius-800 bg-vesuvius-400 my-1 mx-1'
+                : 'text-vesuvius-900 bg-vesuvius-400 my-1 mx-1'
             }
           >
             <input
