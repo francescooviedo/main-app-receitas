@@ -56,7 +56,7 @@ export default function CategoryFilter({ apiType }) {
          px-2 rounded
          focus:outline-none
           focus:shadow-outline
-      text-vesuvius-700 
+      text-vesuvius-700
       mx-0.5"
         type="button"
         data-testid="All-category-filter"

@@ -214,38 +214,38 @@ export default function RecipeDetails({ match: { url } }) {
             </div>
           )
       }
-      <div className='bg-vesuvius-300 rounded mx-1'>
-      <h4 className="text-vesuvius-900">Recomendações</h4>
-      <div
-        style={ { display: 'flex' } }
-      >
-        {
-          type === 'drinks' && mealsRecommendations
-            .slice(0, six).map((receita, index) => (
-              <CardRecommendations
-                id={ receita.idMeal }
-                key={ Math.random() }
-                nome={ receita.strMeal }
-                srcImg={ receita.strMealThumb }
-                index={ index }
-                type={ type === 'meals' ? 'drinks' : 'meals' }
-              />
-            ))
-        }
-        {
-          type === 'meals' && drinksRecommendations
-            .slice(0, six).map((receita, index) => (
-              <CardRecommendations
-                id={ receita.idDrink }
-                key={ Math.random() }
-                nome={ receita.strDrink }
-                srcImg={ receita.strDrinkThumb }
-                index={ index }
-                type={ type === 'meals' ? 'drinks' : 'meals' }
-              />
-            ))
-        }
-      </div>
+      <div className="bg-vesuvius-300 rounded mx-1">
+        <h4 className="text-vesuvius-900">Recomendações</h4>
+        <div
+          style={ { display: 'flex' } }
+        >
+          {
+            type === 'drinks' && mealsRecommendations
+              .slice(0, six).map((receita, index) => (
+                <CardRecommendations
+                  id={ receita.idMeal }
+                  key={ Math.random() }
+                  nome={ receita.strMeal }
+                  srcImg={ receita.strMealThumb }
+                  index={ index }
+                  type={ type === 'meals' ? 'drinks' : 'meals' }
+                />
+              ))
+          }
+          {
+            type === 'meals' && drinksRecommendations
+              .slice(0, six).map((receita, index) => (
+                <CardRecommendations
+                  id={ receita.idDrink }
+                  key={ Math.random() }
+                  nome={ receita.strDrink }
+                  srcImg={ receita.strDrinkThumb }
+                  index={ index }
+                  type={ type === 'meals' ? 'drinks' : 'meals' }
+                />
+              ))
+          }
+        </div>
       </div>
       <div className=" py-2 grid grid-cols-3 gap-3 content-evenly bg-vesuvius-200">
         <div>
