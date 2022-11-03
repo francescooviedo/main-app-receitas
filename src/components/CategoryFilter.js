@@ -44,8 +44,19 @@ export default function CategoryFilter({ apiType }) {
   };
 
   return (
-    <div className="filtercss">
+    <div className="flex-col ">
       <button
+        className="
+        border-2
+        border-vesuvius-500
+        bg-white
+       hover:bg-vesuvius-700
+        font-bold
+        py-1
+         px-2 rounded
+         focus:outline-none
+          focus:shadow-outline
+      text-vesuvius-700 "
         type="button"
         data-testid="All-category-filter"
         onClick={
@@ -58,6 +69,16 @@ export default function CategoryFilter({ apiType }) {
       </button>
       {apiType.slice(0, CINCO).map((categoria) => (
         <button
+          className="
+          border-2
+          border-vesuvius-500
+          bg-white
+           hover:bg-vesuvius-700
+            font-bold
+            py-1 px-4 rounded
+             focus:outline-none
+              focus:shadow-outline
+          text-vesuvius-700 "
           onClick={
             apiType === categoryMeal
               ? () => clickmeal(categoria.strCategory)

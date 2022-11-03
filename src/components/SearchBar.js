@@ -73,62 +73,93 @@ export default function SearchBar() {
   }, [APIDrinks, history, functionSelector]);
 
   return (
-    <div>
-      <input
-        type="text"
-        value={ inputSearch }
-        data-testid="search-input"
-        onChange={ (e) => handleChange(e.target.value) }
-      />
-      <label
-        htmlFor="ingredient"
-      >
+    <div className="flex-col text-vesuvius-900">
+      <div>
         <input
-          data-testid="ingredient-search-radio"
-          type="radio"
-          value="ingrediente"
-          onChange={ handleChangeRadio }
-          name={ radio }
-          id="ingredient"
+          className="
+          mx-4
+          bg-vesuvius-100
+          bg-transparent
+           border-b
+            border-vesuvius-500 py-2
+            leading-tight focus:outline-none
+            text-vesuvius-900
+          "
+          type="text"
+          value={ inputSearch }
+          data-testid="search-input"
+          onChange={ (e) => handleChange(e.target.value) }
         />
-        Ingredient
-      </label>
+      </div>
+      <div className="px-3 accent-vesuvius-700">
+        <div>
 
-      <label
-        htmlFor="name"
-      >
-        <input
-          data-testid="name-search-radio"
-          type="radio"
-          value="nome"
-          onChange={ handleChangeRadio }
-          name={ radio }
-          id="name"
-        />
-        Name
-      </label>
+          <label
+            htmlFor="ingredient"
+          >
+            <input
+              data-testid="ingredient-search-radio"
+              type="radio"
+              value="ingrediente"
+              onChange={ handleChangeRadio }
+              name={ radio }
+              id="ingredient"
+            />
+            Ingredient
+          </label>
+        </div>
+        <div>
 
-      <label
-        htmlFor="firstletter"
-      >
-        <input
-          data-testid="first-letter-search-radio"
-          type="radio"
-          value="primeira-letra"
-          onChange={ handleChangeRadio }
-          name={ radio }
-          id="firstletter"
-        />
-        First letter
-      </label>
+          <label
+            htmlFor="name"
+          >
+            <input
+              data-testid="name-search-radio"
+              type="radio"
+              value="nome"
+              onChange={ handleChangeRadio }
+              name={ radio }
+              id="name"
+            />
+            Name
+          </label>
+        </div>
+        <div>
 
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ functionSelector ? clickMeals : clickBebidas }
-      >
-        Search
-      </button>
+          <label
+            htmlFor="firstletter"
+          >
+            <input
+              data-testid="first-letter-search-radio"
+              type="radio"
+              value="primeira-letra"
+              onChange={ handleChangeRadio }
+              name={ radio }
+              id="firstletter"
+            />
+            First letter
+          </label>
+        </div>
+      </div>
+      <div className="text-center">
+
+        <button
+          className="
+          bg-vesuvius-500
+           hover:bg-vesuvius-700
+            text-white font-bold
+            py-2 px-4 rounded
+            my-3
+             focus:outline-none
+              focus:shadow-outline
+          text-vesuvius-700 "
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ functionSelector ? clickMeals : clickBebidas }
+        >
+          Search
+        </button>
+      </div>
     </div>
   );
 }

@@ -38,12 +38,6 @@ export default function RecipesInProgress() {
           localStorage.setItem(ENDPOINT, JSON.stringify(DetailsArray(drinks[0])));
           setLoading(false);
         }
-        // if (localStorage.getItem(ENDPOINT) == null) {
-        //   const { drinks } = await drinksAPI(`lookup.php?i=${ENDPOINT}`);
-        //   setEParalelo(DetailsArray(drinks[0]));
-        //   localStorage.setItem(ENDPOINT, JSON.stringify(DetailsArray(drinks[0])));
-        //   setLoading(false);
-        // }
       }
     };
     chamadaDeApi();
@@ -52,7 +46,7 @@ export default function RecipesInProgress() {
     return <h1>loading...</h1>;
   }
   return (
-    <div>
+    <div className="bg-white">
       <div>
         {!conditionalRender
       && <ProgrressCard

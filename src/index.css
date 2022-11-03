@@ -1,13 +1,37 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+html, body {
+  height: 100%;
 }
 
+html {
+  display: table;
+  margin: auto;
+  background-image: url('/home/francesco/Desktop/gitseila/sd-024-b-project-recipes-app/src/favicon.webp');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+}
+
+body {
+  display: table-cell;
+  vertical-align: middle;
+  height: 340px;
+  width: 300px;
+  background-image: url('/home/francesco/Desktop/gitseila/sd-024-b-project-recipes-app/src/favicon.webp');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+}
+main {
+  width: 340px;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+a:link { text-decoration: none; }

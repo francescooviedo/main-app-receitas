@@ -8,33 +8,50 @@ export default function DoneRecipeCard({ food: meals }) {
   return (
     meals.map((receita, index) => (
       <div
+        className="
+      my-3
+      mx-1
+      max-w-sm
+      rounded
+      overflow-hidden
+      shadow-lg
+      text-center
+      px-1
+      py-2
+      bg-vesuvius-400
+      "
         key={ Math.random() }
       >
-
+        <div className="bg-vesuvius-300 py-1 rounded my-1 ">
+          <Link
+            to={ receita.type === 'meal'
+              ? `/meals/${receita.id}`
+              : `/drinks/${receita.id}` }
+          >
+            <img
+              className="rounded mx-auto bg-vesuvius-300 py-1 rounded my-1"
+              width="250px"
+              src={ receita.image }
+              alt="Imagem da receita"
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </Link>
+        </div>
         <Link
           to={ receita.type === 'meal'
             ? `/meals/${receita.id}`
             : `/drinks/${receita.id}` }
         >
-          <h3 data-testid={ `${index}-horizontal-name` }>
+          <h5
+            className="text-vesuvius-700 bg-vesuvius-300 py-1 rounded my-1"
+            data-testid={ `${index}-horizontal-name` }
+          >
             { receita.name }
-          </h3>
-        </Link>
-        <Link
-          to={ receita.type === 'meal'
-            ? `/meals/${receita.id}`
-            : `/drinks/${receita.id}` }
-        >
-          <img
-            className="img-done"
-            src={ receita.image }
-            alt="Imagem da receita"
-            data-testid={ `${index}-horizontal-image` }
-          />
+          </h5>
         </Link>
 
         <div className="done-recipe-describe">
-          <div className="done-recipe-top">
+          <div className="bg-vesuvius-300 py-1 rounded my-1 text-vesuvius-700">
             <p
               data-testid={ `${index}-horizontal-top-text` }
             >
@@ -42,24 +59,16 @@ export default function DoneRecipeCard({ food: meals }) {
                 ? `${receita.nationality} - ${receita.category}`
                 : receita.alcoholicOrNot }
             </p>
-
-            <ShareButton
-              dataId={ `${index}-horizontal-share-btn` }
-              URL={ receita.type === 'meal'
-                ? `/meals/${receita.id}`
-                : `/drinks/${receita.id}` }
-            />
-            <FavoriteButton
-              dataId={ `${index}-horizontal-favorite-btn` }
-              receita={ receita }
-            />
           </div>
 
-          <p data-testid={ `${index}-horizontal-done-date` }>
+          <p
+            className="bg-vesuvius-300 py-1 rounded my-1 text-vesuvius-700"
+            data-testid={ `${index}-horizontal-done-date` }
+          >
             { receita.doneDate }
           </p>
 
-          <div>
+          <div className="bg-vesuvius-300 py-1 rounded my-1 text-vesuvius-700">
             {
               receita.tags?.map((tag) => (
                 <p
@@ -71,6 +80,21 @@ export default function DoneRecipeCard({ food: meals }) {
               ))
             }
           </div>
+        </div>
+        <div
+          className="grid grid-cols-2 gap-4
+        content-evenly bg-vesuvius-300 py-1 rounded"
+        >
+          <ShareButton
+            dataId={ `${index}-horizontal-share-btn` }
+            URL={ receita.type === 'meal'
+              ? `/meals/${receita.id}`
+              : `/drinks/${receita.id}` }
+          />
+          <FavoriteButton
+            dataId={ `${index}-horizontal-favorite-btn` }
+            receita={ receita }
+          />
         </div>
       </div>
     ))

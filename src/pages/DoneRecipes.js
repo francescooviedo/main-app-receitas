@@ -18,10 +18,22 @@ export default function DoneRecipes() {
   console.log(storage);
 
   return (
-    <div>
+    <div className="bg-white text-center">
       <Header header profile search={ false } title="Done Recipes" />
-      <div>
+      <div className="grid grid-cols-3 my-2">
         <button
+          className="
+         border-2
+         border-vesuvius-500
+         bg-white
+        hover:bg-vesuvius-700
+         font-bold
+         mx-1
+         py-1
+          px-2 rounded
+          focus:outline-none
+           focus:shadow-outline
+       text-vesuvius-700 "
           type="button"
           data-testid="filter-by-all-btn"
           onClick={ () => {
@@ -31,6 +43,18 @@ export default function DoneRecipes() {
           All
         </button>
         <button
+          className="
+         border-2
+         border-vesuvius-500
+         bg-white
+        hover:bg-vesuvius-700
+         font-bold
+         mx-1
+         py-1
+          px-2 rounded
+          focus:outline-none
+           focus:shadow-outline
+       text-vesuvius-700 "
           type="button"
           data-testid="filter-by-meal-btn"
           onClick={ () => {
@@ -40,6 +64,18 @@ export default function DoneRecipes() {
           Meals
         </button>
         <button
+          className="
+ border-2
+ border-vesuvius-500
+ bg-white
+hover:bg-vesuvius-700
+ font-bold
+ py-1
+ mx-1
+  px-2 rounded
+  focus:outline-none
+   focus:shadow-outline
+text-vesuvius-700 "
           type="button"
           data-testid="filter-by-drink-btn"
           onClick={ () => {

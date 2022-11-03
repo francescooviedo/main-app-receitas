@@ -150,32 +150,55 @@ export default function RecipeDetails({ match: { url } }) {
   };
 
   return (
-    <div>
-      <img
-        data-testid="recipe-photo"
-        src={ info.strDrinkThumb || info.strMealThumb }
-        alt={ info.idDrink || info.idMeal }
-      />
-      <h3 data-testid="recipe-title">{info.strDrink || info.strMeal}</h3>
-      <h4 data-testid="recipe-category">{info.strAlcoholic || info.strCategory}</h4>
+    <div className="flex-col text-center  items-center bg-vesuvius-200">
+      <div className="">
+        <img
+          className="w-full overflow-hidden rounded px-1 py-1"
+          data-testid="recipe-photo"
+          src={ info.strDrinkThumb || info.strMealThumb }
+          alt={ info.idDrink || info.idMeal }
+        />
+      </div>
+      <h3
+        className="text-vesuvius-900"
+        data-testid="recipe-title"
+      >
+        {info.strDrink || info.strMeal}
+
+      </h3>
+      <h4
+        className="text-vesuvius-700"
+        data-testid="recipe-category"
+      >
+        {info.strAlcoholic || info.strCategory}
+
+      </h4>
       <ul>
         {
           ingredientsAndMeasures.map((ingredient, index) => (
-            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+            <li
+              className="text-vesuvius-700"
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
               {`${Object.keys(ingredient)[0]} -  ${Object.values(ingredient)[0]}`}
             </li>
           ))
         }
       </ul>
-      <p data-testid="instructions">{info.strInstructions}</p>
+      <p
+        className="px-1 py-1 text-vesuvius-700"
+        data-testid="instructions"
+      >
+        {info.strInstructions}
+
+      </p>
       {
         renderVideo === 'meals'
           && (
             <div className="video-responsive">
               <iframe
                 data-testid="video"
-                width="853"
-                height="480"
                 src={ `https://www.youtube.com/embed/${info.strYoutube.split('=').slice(negative1).pop()}` }
                 frameBorder="0"
                 allowFullScreen
@@ -184,10 +207,10 @@ export default function RecipeDetails({ match: { url } }) {
             </div>
           )
       }
-      <button type="button" onClick={ () => redirecttoProgress() }>progess</button>
-      <button type="button" onClick={ () => redirecttoProgress2() }>progess2</button>
-      <h4>Recomendações</h4>
-      <div style={ { display: 'flex' } }>
+      <h4 className="text-vesuvius-900">Recomendações</h4>
+      <div
+        style={ { display: 'flex' } }
+      >
         {
           type === 'drinks' && mealsRecommendations
             .slice(0, six).map((receita, index) => (
@@ -215,31 +238,52 @@ export default function RecipeDetails({ match: { url } }) {
             ))
         }
       </div>
-      <Link to={ `/${type}/${id}/in-progress` }>
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          style={ { position: 'fixed', bottom: '0px' } }
-        >
-          { inProgress ? 'Continue Recipe' : 'Start Recipe' }
-        </button>
-      </Link>
-      <button type="button" data-testid="share-btn" onClick={ copyLink }>
-        {' '}
-        <img
-          src={ shareIcon }
-          alt="search-icon"
-        />
-        Compartilhar
-      </button>
-      <button type="button" onClick={ favoriteToLocalStorage }>
-        <img
-          src={ favorite ? blackHeartIcon : whiteHeartIcon }
-          alt="favoriteIcon"
-          data-testid="favorite-btn"
-        />
-      </button>
-      { copied && <p>Link copied!</p>}
+      <div className=" py-2 grid grid-cols-3 gap-4 content-evenly">
+        <div>
+          <Link to={ `/${type}/${id}/in-progress` }>
+            <button
+              className="
+          bg-vesuvius-500
+           hover:bg-vesuvius-700
+            text-white
+               px-1
+               py-1
+               rounded
+             focus:outline-none
+              focus:shadow-outline
+          text-vesuvius-700 "
+              data-testid="start-recipe-btn"
+              type="button"
+
+            >
+              { inProgress ? 'Continue Recipe' : 'Start Recipe' }
+            </button>
+          </Link>
+        </div>
+        <div>
+
+          <button type="button" data-testid="share-btn" onClick={ copyLink }>
+            {' '}
+            <img
+              src={ shareIcon }
+              alt="search-icon"
+            />
+
+          </button>
+
+        </div>
+        <div>
+
+          <button type="button" onClick={ favoriteToLocalStorage }>
+            <img
+              src={ favorite ? blackHeartIcon : whiteHeartIcon }
+              alt="favoriteIcon"
+              data-testid="favorite-btn"
+            />
+          </button>
+        </div>
+        { copied && <p>Link copied!</p>}
+      </div>
     </div>
   );
 }

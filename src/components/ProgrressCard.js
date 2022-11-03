@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import MyContext from '../Context/MyContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 export default function ProgrressCard({
   img,
@@ -146,24 +147,28 @@ export default function ProgrressCard({
     }
   };
   return (
-    <div>
+    <div className="px-2 flex-col bg-vesuvius-200">
       <h4
+        className="text-vesuvius-700 text-center"
         data-testid="recipe-title"
       >
         {title}
       </h4>
       <h4
+        className="text-vesuvius-600 text-center my-4"
         data-testid="recipe-category"
       >
         {category}
       </h4>
       <img
+        className="mx-auto rounded my-4"
         data-testid="recipe-photo"
         src={ img }
         alt="img"
         width="100"
       />
       <p
+        className="px-1 py-1 text-vesuvius-700"
         data-testid="instructions"
       >
         {instructions}
@@ -175,7 +180,11 @@ export default function ProgrressCard({
             htmlFor={ ingrediente.ingredient }
             key={ index }
             data-testid={ `${index}-ingredient-step` }
-            className={ ingrediente.isChecked ? 'checado' : 'naochecado' }
+            className={
+              ingrediente.isChecked
+                ? 'accent-vesuvius-700 line-through decoration-vesuvius-900 text-vesuvius-800'
+                : 'text-vesuvius-900'
+            }
           >
             <input
               type="checkbox"
@@ -190,35 +199,45 @@ export default function ProgrressCard({
           </label>
         ))}
       </div>
-      <button
-        name="compartilhar"
-        onClick={ (e) => clickBotao(e.target.name) }
-        data-testid="share-btn"
-        type="button"
-      >
-        compartilhar
-      </button>
-      <button
-        name="favorite"
-        onClick={ favoriteButton }
-        type="button"
-      >
-        <img
-          data-testid="favorite-btn"
+      <div className="flex py-3">
+        <button
+          className="px-5"
+          name="compartilhar"
+          onClick={ (e) => clickBotao(e.target.name) }
+          data-testid="share-btn"
+          type="button"
+        >
+          <img
+            src={ shareIcon }
+            alt="search-icon"
+          />
+        </button>
+        <button
+          className="px-4"
           name="favorite"
-          src={ favorite ? blackHeartIcon : whiteHeartIcon }
-          alt="favoriteIcon"
-        />
-      </button>
-      <button
-        name="finish"
-        onClick={ clickBotaoFinish }
-        data-testid="finish-recipe-btn"
-        type="button"
-        disabled={ isDone }
-      >
-        Finish Recipe
-      </button>
+          onClick={ favoriteButton }
+          type="button"
+        >
+          <img
+            data-testid="favorite-btn"
+            name="favorite"
+            src={ favorite ? blackHeartIcon : whiteHeartIcon }
+            alt="favoriteIcon"
+          />
+        </button>
+        <button
+          className={ isDone
+            ? 'text-vesuvius-200 bg-vesuvius-800/30 rounded px-1 py-1'
+            : 'bg-vesuvius-500 hover:bg-vesuvius-700 text-white px-1 py-1 rounded focus:outline-none focus:shadow-outline text-vesuvius-700' }
+          name="finish"
+          onClick={ clickBotaoFinish }
+          data-testid="finish-recipe-btn"
+          type="button"
+          disabled={ isDone }
+        >
+          Finish Recipe
+        </button>
+      </div>
       {compartilhou && <h1>Link copied!</h1>}
     </div>
   );

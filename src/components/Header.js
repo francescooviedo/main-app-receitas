@@ -23,20 +23,20 @@ export default function Header({ title, header, profile, search }) {
   };
 
   return (
-    <div className="headercss">
-      {
-        header
-        && (
-          <header>
-            <h3 data-testid="page-title">
-              {title}
-            </h3>
-          </header>
+    <div
+      className="
+      bg-vesuvius-200
+      rounded
+      items-stretch
+     flex-col
+     fixed-top-0
+     "
+    >
+      <div className="flex items-stretch py-4">
 
-        )
-      }
-      {
-        profile
+        <div className="px-10">
+          {
+            profile
         && (
           <button
             type="button"
@@ -50,9 +50,29 @@ export default function Header({ title, header, profile, search }) {
           </button>
 
         )
-      }
-      {
-        search
+          }
+        </div>
+        <div className="text-center px-10 ">
+          {
+            header
+        && (
+          <header>
+            <h3
+              className="
+              text-vesuvius-800
+            "
+              data-testid="page-title"
+            >
+              {title}
+            </h3>
+          </header>
+
+        )
+          }
+        </div>
+        <div className="items-end px-10">
+          {
+            search
         && (
           <button
             type="button"
@@ -67,13 +87,16 @@ export default function Header({ title, header, profile, search }) {
 
         )
 
-      }
-      {
-        hidden
+          }
+        </div>
+      </div>
+      <div>
+        {
+          hidden
         && (<SearchBar />)
-      }
+        }
+      </div>
     </div>
-
   );
 }
 

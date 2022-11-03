@@ -16,15 +16,20 @@ export default function Recipes() {
   const doze = 12;
 
   return (
-    <div>
+    <div
+      className="
+      space-y-5
+      flex-col
+      "
+    >
       <Header header profile search title={ functionSelector ? 'Meals' : 'Drinks' } />
       {functionSelector && <CategoryFilter apiType={ categoryMeal } />}
       {!functionSelector && <CategoryFilter apiType={ categoryDrink } />}
-      <div className="RecipesContainer">
+      <div className="">
 
         {!renderAlert
         && (
-          <div className="receitasContainer">
+          <div className="">
             {
               functionSelector && APIMeals.slice(0, doze).map((receita, index) => (
                 <Card
@@ -49,13 +54,16 @@ export default function Recipes() {
              />
            ))
             }
+
           </div>
         )}
         {renderAlert
       && global.alert('Sorry, we haven\'t found any recipes for these filters.')}
-
       </div>
-      <Footer />
+      <div>
+        <Footer />
+      </div>
+
     </div>
   );
 }
